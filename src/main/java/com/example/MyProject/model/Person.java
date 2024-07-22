@@ -1,5 +1,8 @@
 package com.example.MyProject.model;
 
+import jakarta.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public abstract class Person {
 	
 	private String name;
@@ -39,5 +42,4 @@ public abstract class Person {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
 }
