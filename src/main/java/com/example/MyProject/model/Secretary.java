@@ -2,8 +2,11 @@ package com.example.MyProject.model;
 
 import java.util.Objects;
 
+import jakarta.persistence.Id;
+
 public class Secretary extends Person{
 	
+	@Id
 	private Integer registrationNum;
 
 	public Secretary(String name, String email, String password, Integer registrationNum) {
