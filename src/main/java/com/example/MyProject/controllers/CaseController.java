@@ -47,6 +47,7 @@ public class CaseController {
 	        // Retorne uma resposta de erro com status 400 Bad Request
 	        return ResponseEntity.badRequest().body(null);
 	    } catch (Exception e) {
+	        // Retorne uma resposta de erro genérico com status 500 Internal Server Error
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 	    }
 	}

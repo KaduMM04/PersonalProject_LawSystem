@@ -31,7 +31,6 @@ public class CaseService {
 		 if (c.getClient() == null) {
 	            throw new IllegalArgumentException("Um cliente deve ser associado ao caso.");
 	        }
-		 
 		return caseRepository.save(c);
 	}
 	
@@ -74,8 +73,8 @@ public class CaseService {
     }
 	
 	public CaseDTO convertToDTO(Case c) {
-		LawyerBasicInfoDTO lawyerInfo = null;
 		
+		LawyerBasicInfoDTO lawyerInfo = null;
 	    if (c.getLawyer() != null) {
 	        lawyerInfo = new LawyerBasicInfoDTO(c.getLawyer().getOab(), c.getLawyer().getName());
 	    } else {
