@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.example.MyProject.model.Case;
 
 @Repository
-public interface CaseRepository extends JpaRepository<Case, Long>{
+public interface CaseRepository extends JpaRepository<Case, Long> {
 }

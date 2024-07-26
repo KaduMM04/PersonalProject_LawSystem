@@ -2,8 +2,12 @@ package com.example.MyProject.model;
 
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "scretaries")
 public class Secretary extends Person{
 	
 	@Id

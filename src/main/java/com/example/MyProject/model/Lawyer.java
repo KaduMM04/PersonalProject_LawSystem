@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -22,6 +24,7 @@ public class Lawyer extends Person{
 	private String praticeArea;
 	
 	@OneToMany(mappedBy = "lawyer")
+	@JsonManagedReference
 	private List<Case> cases = new ArrayList<>();
 	
 	public Lawyer() {
@@ -99,8 +102,5 @@ public class Lawyer extends Person{
 			return false;
 		Lawyer other = (Lawyer) obj;
 		return Objects.equals(oab, other.oab);
-	}
-	
-	
-	
+	}	
 }

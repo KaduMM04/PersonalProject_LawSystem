@@ -2,6 +2,8 @@ package com.example.MyProject.model;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,6 +13,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "cases")
+
 public class Case {
 	
 	@Id
@@ -25,6 +28,7 @@ public class Case {
 	
 	@ManyToOne
 	@JoinColumn(name = "oab_lawyer")
+	@JsonBackReference
 	private Lawyer lawyer;
 	
 	@Column(name = "description")
@@ -33,16 +37,16 @@ public class Case {
 	@Column(name = "price")
 	private Double price;
 	
-	 public Case() {}
+	public Case() {}
 
-	    public Case(Long id, String typeCase, Client client, Lawyer lawyer, String description, Double price) {
+	public Case(Long id, String typeCase, Client client, Lawyer lawyer, String description, Double price) {
 	        this.id = id;
 	        this.typeCase = typeCase;
 	        this.client = client;
 	        this.lawyer = lawyer;
 	        this.description = description;
 	        this.price = price;
-	    }
+	  }
 
 		public Long getId() {
 			return id;
@@ -106,5 +110,4 @@ public class Case {
 	        Case other = (Case) obj;
 	        return Objects.equals(id, other.id);
 	    }
-	    
 }

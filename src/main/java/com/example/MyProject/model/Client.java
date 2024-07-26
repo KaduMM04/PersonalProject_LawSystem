@@ -24,7 +24,7 @@ public class Client extends Person{
 	@OneToMany(mappedBy = "client")
 	private List<Case> cases = new ArrayList<>();
 	
-	public Client () {
+	public Client() {
 	}
 
 	public Client(String name, String email, String password, Long cpf, String cep) {
@@ -32,7 +32,6 @@ public class Client extends Person{
 		this.cpf = cpf;
 		this.cep = cep;
 	}
-
 
 	public Long getCpf() {
 		return cpf;
@@ -66,7 +65,6 @@ public class Client extends Person{
 		if (cases.contains(c)) {
 			throw new IllegalArgumentException("Case already exists.");
 		}
-		
 		
 		cases.add(c);
 		c.setClient(this);
