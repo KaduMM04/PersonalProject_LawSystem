@@ -22,7 +22,12 @@ public class LawyerService {
 	private CaseRepository caseRepository;
 	
 	public Lawyer saveLawyer(Lawyer lawyer) {
-		return lawyerRepository.save(lawyer);
+		if (getLawyerById(lawyer.getOab()) != null) {
+			return null;
+		} else {
+			return lawyerRepository.save(lawyer);
+		}
+		
 	}
 	
 	public Lawyer getLawyerById(Long oab) {
@@ -64,6 +69,6 @@ public class LawyerService {
 	    List<Long> caseIds = lawyer.getCases().stream()
 	        .map(Case::getId)
 	        .collect(Collectors.toList());
-	    return new LawyerDTO(lawyer.getEmail(), lawyer.getName(), lawyer.getOab(), lawyer.getPraticeArea(), caseIds);
+	    return new LawyerDTO(lawyer.getName(), lawyer.getEmail(), lawyer.getOab(), lawyer.getPraticeArea(), caseIds);
 	}
 }

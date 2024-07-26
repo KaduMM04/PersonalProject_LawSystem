@@ -33,7 +33,6 @@ public class TestConfig implements CommandLineRunner {
 		Lawyer l1 = new Lawyer("Dirlei", "dirlei@email", "123", 2444L, "civil");
 		Lawyer l2 = new Lawyer("Priscilla", "priscilla@email", "123", 3214L, "previdenciario");
 		
-		
 		lawyerRepository.saveAll(Arrays.asList(l1, l2));
 		
 		Client cl1 = new Client("Jorge", "jorge@email", "321", 33333L, "81280330");

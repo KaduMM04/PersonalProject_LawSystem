@@ -28,7 +28,11 @@ public class LawyerController {
 	@PostMapping
 	public ResponseEntity<Lawyer> createLawyer(@RequestBody Lawyer lawyer) {
 		lawyer  = lawyerService.saveLawyer(lawyer);
-		return new ResponseEntity<>(lawyer, HttpStatus.CREATED);
+		 if (lawyer != null) {
+	            return new ResponseEntity<>(lawyer, HttpStatus.CREATED);
+	        } else {
+	            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	        }
 	}
 	
 	@GetMapping
