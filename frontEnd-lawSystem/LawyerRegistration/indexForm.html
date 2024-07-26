@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lawyer Registration</title>
+    <link rel="stylesheet" href="Form.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="logo.png" alt="Logo Mendes Miranda" class = logo>
+        </div>
+        <div class="form-container">
+            <h1>Cadastro de Advogados</h1>
+            <form id="lawyerForm">
+                <div class="form-group">
+                    <label for="name">Nome:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="oabNumber">OAB:</label>
+                    <input type="text" id="oabNumber" name="oabNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="area">Área de atuação:</label>
+                    <select name="" id="area">
+                        <option value="Trabalhista">Trabalhista</option>
+                        <option value="Civil">Civil</option>
+                        <option value="Previdenciario">Previdenciario</option>
+                    </select> 
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" >
+                </div>
+                <div class="form-buttons">
+                    <button type="submit">Cadastrar</button>
+                    <button type="reset">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="lawyerForm.js"></script>
+</body>
+</html>
