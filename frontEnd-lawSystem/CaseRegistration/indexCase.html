@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Registration</title>
+    <link rel="stylesheet" href="case.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="/Images/Logo.jpg" alt="Logo Mendes Miranda" class = logo>
+        </div>
+        <div class="form-container">
+            <h1>Cadastro de Casos</h1>
+            <form id="caseForm">
+                <div class="form-group">
+                    <label for="idCase">ID:</label>
+                    <input type="text" id="idCase" name="idCase" required>
+                </div>
+                <div class="form-group">
+                    <label for="area">Tipo do caso:</label>
+                    <select name="" id="area">
+                        <option value="Trabalhista">Trabalhista</option>
+                        <option value="Civil">Civil</option>
+                        <option value="Previdenciario">Previdenciario</option>
+                    </select> 
+                </div>
+                <div class="form-group">
+                    <label for="price">Valor:</label>
+                    <input type="text" id="price" name="price" required>
+                </div>
+                <div class="form-group"> 
+                    <label for="lawyerSelect">Advogado:</label>
+                    <select name="lawyerSelect"id="lawyerSelect" >
+                        <option value="">Selecione um advogado</option>
+                        <!-- Opções serão preenchidas dinamicamente -->
+                    </select>
+                </div>
+                <div class="form-group"> 
+                    <label for="clientSelect">Cliente:</label>
+                    <select name="clientSelect"id="clientSelect" >
+                        <option value="">Selecione um cliente</option>
+                        <!-- Opções serão preenchidas dinamicamente -->
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Descrição:</label>
+                    <textarea rows="10" id="description"name="description"></textarea>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit">Cadastrar</button>
+                    <button type="reset">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="caseForm.js"></script>
+</body>
+</html>
