@@ -34,8 +34,10 @@ document.getElementById('lawyerForm').addEventListener('submit', function(event)
     })
     .then(data => {
         console.log('Cadastro realizado com sucesso:', data);
+        alert('Advogado cadastrado com sucesso');
+        document.getElementById('lawyerForm').reset();
     })
     .catch(error => {
-        console.error('Erro ao cadastrar:', error);
+        alert('Erro ao cadastrar o advogado. Tente novamente');
     });
-});
+});   

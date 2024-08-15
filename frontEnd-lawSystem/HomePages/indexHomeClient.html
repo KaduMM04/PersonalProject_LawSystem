@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Lawyer Dashboard</title>
+    <link rel="stylesheet" href="homeClient.css">
+</head>
+<body>
+    <header>
+        <div class="top-nav">
+            <div class="logo">
+                <img src="/Images/Logo.jpg" alt="Logo">
+            </div>
+            <nav class="horizontal-nav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#services">Serviços</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <nav class="vertical-nav">
+            <ul>
+                <li><a href="#">Início</a></li>
+                <li><a href="#" id="show-cases">Casos</a></li>
+                <li><a href="#">Mensagens</a></li>
+                <li><a href="#">Perfil</a></li>
+                <li><a href="#">Sair</a></li>
+            </ul>
+        </nav>
+
+        <!-- Modal -->
+        <div id="cases-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Meus Casos</h2>
+                <table id="cases-table" class="cases-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tipo</th>
+                            <th>Descrição</th>
+                            <th>Cliente</th>
+                            <th>CPF</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cases-list">
+                        <!-- Os dados dos casos serão inseridos aqui -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="perfil-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Meu PErfiu</h2>
+                <table id="cases-table" class="cases-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tipo</th>
+                            <th>Descrição</th>
+                            <th>Cliente</th>
+                            <th>CPF</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cases-list">
+                        <!-- Os dados dos casos serão inseridos aqui -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <main>
+            <div class="welcome">
+                <h1>Bem-vindo,</h1>
+            </div>
+
+            <div class="dashboard">
+                <div class="case-summary">
+                    <h2>Meus Casos</h2>
+                    <div class="section-content">
+                        <p>Descrição e status dos casos.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Escritório de Advocacia</p>
+        <p>Contato: mendesmiranda@adv.com</p>
+    </footer>
+
+    <script src="homeClient.js"></script>
+</body>
+</html>

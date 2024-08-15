@@ -64,9 +64,16 @@ document.addEventListener("DOMContentLoaded", function() {
             return response.json();
         })
         .then(data => {
+            alert('Caso cadastrado com sucesso');
+
+            caseForm.reset();
+            lawyerSelect.selectedIndex = 0;
+            clientSelect.selectedIndex = 0;
+            
             console.log('Cadastro realizado com sucesso:', data);
         })
         .catch(error => {
+            alert('Erro ao cadastrar o case. Tente novamente');
             console.error('Erro ao cadastrar:', error);
         });
     });
