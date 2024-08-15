@@ -1,6 +1,7 @@
 package com.example.MyProject.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,22 @@ public class CaseService {
 	
 	@Autowired
 	private ClientRepository clientRepository;
+	
+	
+	public List<CaseDTO> getCasesByLawyerId(Long lawyerOab) {
+	    List<Case> cases = caseRepository.findByLawyerOab(lawyerOab);
+	    return cases.stream()
+	                .map(this::convertToDTO)
+	                .collect(Collectors.toList());
+	}
+	
+	
+	public List<CaseDTO> getCasesByClientId(Long ClientCpf) {
+	    List<Case> cases = caseRepository.findByClientCpf(ClientCpf);
+	    return cases.stream()
+	                .map(this::convertToDTO)
+	                .collect(Collectors.toList());
+	}
 	
 	public Case saveCase(Case c) {
 		 if (c.getClient() == null) {

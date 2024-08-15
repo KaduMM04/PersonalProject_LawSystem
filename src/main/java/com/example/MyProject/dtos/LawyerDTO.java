@@ -10,12 +10,14 @@ public class LawyerDTO {
 	private Long oab;
     private String name;
     private String email;
+    private String password;
     private String praticeArea;
     private List<Long> caseIds;
     
-    public LawyerDTO(String name, String email, Long oab, String praticeArea, List<Long> caseIds) {
+    public LawyerDTO(String name, String email, String password, Long oab, String praticeArea, List<Long> caseIds) {
         this.name = name;
         this.email = email;
+        this.password = password;
         this.oab = oab;
         this.praticeArea = praticeArea;
         this.caseIds = caseIds;
@@ -38,6 +40,16 @@ public class LawyerDTO {
 		this.email = email;
 	}
 	
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
 	public Long getOab() {
 		return oab;
 	}

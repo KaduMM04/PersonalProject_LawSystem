@@ -12,11 +12,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "lawyers")
-public class Lawyer extends Person{
+public class Lawyer extends User{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	private Long oab;
 	
@@ -30,11 +31,13 @@ public class Lawyer extends Person{
 	public Lawyer() {
 	}
 
-	public Lawyer(String name, String email, String password, Long  oab, String praticeArea) {
-		super(name, email, password);
+	public Lawyer(String name, String email, String password, UserRole role, Long  oab, String praticeArea) {
+		super(name, email, password, role);
 		this.oab = oab;
 		this.praticeArea = praticeArea;
 	}
+	
+	
 
 	public Long getOab() {
 		return oab;
@@ -102,5 +105,5 @@ public class Lawyer extends Person{
 			return false;
 		Lawyer other = (Lawyer) obj;
 		return Objects.equals(oab, other.oab);
-	}	
+	}
 }

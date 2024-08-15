@@ -8,13 +8,15 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "scretaries")
-public class Secretary extends Person{
+public class Secretary extends User{
+
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	private Integer registrationNum;
 
-	public Secretary(String name, String email, String password, Integer registrationNum) {
-		super(name, email, password);
+	public Secretary(String name, String email, String password, UserRole role, Integer registrationNum) {
+		super(name, email, password, role);
 		this.registrationNum = registrationNum;
 	}
 
@@ -45,5 +47,4 @@ public class Secretary extends Person{
 		Secretary other = (Secretary) obj;
 		return Objects.equals(registrationNum, other.registrationNum);
 	}
-
 }

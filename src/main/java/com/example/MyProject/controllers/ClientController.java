@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.MyProject.dtos.CaseDTO;
 import com.example.MyProject.dtos.ClientDTO;
 import com.example.MyProject.model.Client;
+import com.example.MyProject.services.CaseService;
 import com.example.MyProject.services.ClientService;
 
 @RestController
@@ -24,6 +26,9 @@ public class ClientController {
 	
 	@Autowired
 	private ClientService clientService;
+	
+	@Autowired
+	private CaseService caseService;
 	
 	@PostMapping
 	public ResponseEntity<Client> createClient(@RequestBody Client client) {
@@ -45,6 +50,12 @@ public class ClientController {
 		Client client = clientService.getClientById(cpf);
 		ClientDTO clientDTO = clientService.convertToDTO(client);
 		return ResponseEntity.ok().body(clientDTO);
+	}
+	
+	@GetMapping(value = "/{cpf}/cases")
+	public ResponseEntity<List<CaseDTO>> findCasesByClientId(@PathVariable Long cpf) {
+		List<CaseDTO> caseDTOs = caseService.getCasesByClientId(cpf);
+		return ResponseEntity.ok().body(caseDTOs);
 	}
 	
 	@PutMapping(value = "/{cpf}")

@@ -13,8 +13,10 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "clients")
-public class Client extends Person{
+public class Client extends User{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	private Long cpf;
 	
@@ -27,8 +29,8 @@ public class Client extends Person{
 	public Client() {
 	}
 
-	public Client(String name, String email, String password, Long cpf, String cep) {
-		super(name, email, password);
+	public Client(String name, String email, String password, UserRole role, Long cpf, String cep) {
+		super(name, email, password, role);
 		this.cpf = cpf;
 		this.cep = cep;
 	}
@@ -109,5 +111,4 @@ public class Client extends Person{
 		Client other = (Client) obj;
 		return Objects.equals(cpf, other.cpf);
 	}
-	
 }

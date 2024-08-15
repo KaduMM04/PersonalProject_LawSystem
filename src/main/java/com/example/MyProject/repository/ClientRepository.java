@@ -7,4 +7,6 @@ import com.example.MyProject.model.Client;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long>{
+	 Client findByEmail(String email);
+
 }
