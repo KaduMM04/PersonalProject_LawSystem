@@ -13,7 +13,7 @@ import jakarta.persistence.MappedSuperclass;
 public abstract class User implements UserDetails{
 	
 	private static final long serialVersionUID = 1L;
-
+	
 	private String name;
 	private String email;
 	private String password;
@@ -22,8 +22,18 @@ public abstract class User implements UserDetails{
 	public User () {
 	}
 	
+	public User(String email, String password) {
+		this.email = email;
+		this.password = password;
+	}
+	
+	public User(String email, String password, UserRole role) {
+		this.email = email;
+		this.password = password;
+		this.role = role;
+	}
+	
 	public User(String name, String email, String password, UserRole role) {
-		super();
 		this.name = name;
 		this.email = email;
 		this.password = password;
@@ -64,13 +74,33 @@ public abstract class User implements UserDetails{
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIM"), new SimpleGrantedAuthority("ROLE_USER"));	
+		if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));	
 		else  return List.of(new SimpleGrantedAuthority("ROLE_USER"));
 	}
 
 	@Override
 	public String getUsername() {
 		return email;
+	}
+	
+	@Override
+	public boolean isAccountNonExpired() {
+	    return true; // Adjust based on your needs
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+	    return true; // Adjust based on your needs
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+	    return true; // Adjust based on your needs
+	}
+
+	@Override
+	public boolean isEnabled() {
+	    return true; // Adjust based on your needs
 	}
 
 }

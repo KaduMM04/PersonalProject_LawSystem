@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "scretaries")
+@Table(name = "secretaries")
 public class Secretary extends User{
 
 	private static final long serialVersionUID = 1L;

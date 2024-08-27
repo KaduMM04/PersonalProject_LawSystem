@@ -30,7 +30,7 @@ public class LawyerService {
 		
 	}
 	
-	 public Lawyer getLawyerById(Long oab) {
+	public Lawyer getLawyerById(Long oab) {
 	        Optional<Lawyer> optionalLawyer = lawyerRepository.findById(oab);
 	        if (optionalLawyer.isPresent()) {
 	            return optionalLawyer.get();
@@ -38,7 +38,15 @@ public class LawyerService {
 	            System.out.println("Lawyer not found with oab: " + oab);
 	            throw new RuntimeException("Lawyer not found with oab: " + oab);
 	        }
-	    }
+	}
+	
+	public Lawyer getLawyerByEmail(String email) {
+        Lawyer optionalLawyer = lawyerRepository.findByEmail(email);
+        if (optionalLawyer == null) {
+            throw new RuntimeException("Lawyer not found with email: " + email);
+        }
+        return optionalLawyer;
+	}
 	
 	public void deleteLawyerById(Long oab) {
 		Lawyer lawyer = lawyerRepository.findById(oab)

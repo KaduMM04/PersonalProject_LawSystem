@@ -4,22 +4,35 @@ document.querySelector('form').addEventListener('submit', function(event) {
     var login = document.getElementById('login').value;
     var password = document.getElementById('password').value;
 
+    // Verifica se os campos de login e senha estão preenchidos
     if (login === '' || password === '') {
         alert('Please, enter all fields.');
         return;
     }
 
-    fetch('/api/auth/login', {
+    // Faz a requisição para o backend
+    fetch('http://localhost:8080/auth/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ login: login, password: password }),
+        body: JSON.stringify({ email: login, password: password }), // Usa 'email' como campo para login
     })
-    .then(response => response.text())
-    .then(page => {
-        if (page.includes("home")) {
-            window.location.href = `/${page}`;
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json(); // Converte a resposta em JSON
+    })
+    .then(data => {
+        // Verifica se o token está presente na resposta
+        if (data.token) {
+            // Armazena o token e o email do usuário no localStorage
+            localStorage.setItem('authToken', data.token);
+            localStorage.setItem('userEmail', login); 
+
+            // Redireciona para a página do advogado
+            window.location.href = '/HomePages/indexHomeLawyer.html';
         } else {
             alert("Invalid credentials");
         }

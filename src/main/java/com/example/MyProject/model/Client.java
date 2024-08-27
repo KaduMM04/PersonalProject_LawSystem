@@ -28,6 +28,10 @@ public class Client extends User{
 	
 	public Client() {
 	}
+	
+	public Client(String email, String  password) {
+		super(email, password);
+	}
 
 	public Client(String name, String email, String password, UserRole role, Long cpf, String cep) {
 		super(name, email, password, role);

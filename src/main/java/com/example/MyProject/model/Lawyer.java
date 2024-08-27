@@ -30,14 +30,16 @@ public class Lawyer extends User{
 	
 	public Lawyer() {
 	}
+	
+	public Lawyer(String email, String  password) {
+		super(email, password);
+	}
 
 	public Lawyer(String name, String email, String password, UserRole role, Long  oab, String praticeArea) {
 		super(name, email, password, role);
 		this.oab = oab;
 		this.praticeArea = praticeArea;
 	}
-	
-	
 
 	public Long getOab() {
 		return oab;

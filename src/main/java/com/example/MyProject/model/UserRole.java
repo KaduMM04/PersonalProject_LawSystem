@@ -6,6 +6,8 @@ public enum UserRole {
 	
 	USERLAWYER("lawyer"),
 	
+	USERSECRETARY("secretary"),
+	
 	USERCLIENT("client");
 	
 	private String role;
@@ -17,4 +19,13 @@ public enum UserRole {
 	public String getRole() {
 		return role;
 	}
+	
+	public static UserRole fromString(String userRole) {
+        for (UserRole role : UserRole.values()) {
+            if (role.getRole().equalsIgnoreCase(userRole)) {
+                return role;
+            }
+        }
+        throw new IllegalArgumentException("Invalid role: " + userRole);
+    }
 }

@@ -59,7 +59,17 @@ public class LawyerController {
 	    return ResponseEntity.ok().body(lawyerDTO);
 	}
 	
-	@GetMapping("/{oab}/cases")
+	@GetMapping(value = "/email/{email}")
+	public ResponseEntity<LawyerDTO> findByEmail(@PathVariable String email) {
+	    Lawyer lawyer = lawyerService.getLawyerByEmail(email);
+	    if (lawyer == null) {
+	        return ResponseEntity.notFound().build();
+	    }
+	    LawyerDTO lawyerDTO = lawyerService.convertToDTO(lawyer);
+	    return ResponseEntity.ok().body(lawyerDTO);
+	}
+	
+	@GetMapping(value = "/{oab}/cases")
 	public ResponseEntity<List<CaseDTO>> findCasesByLawyerId(@PathVariable Long oab) {
 	    List<CaseDTO> caseDTOs = caseService.getCasesByLawyerId(oab);
 	    return ResponseEntity.ok().body(caseDTOs);
