@@ -32,7 +32,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
             localStorage.setItem('userEmail', login); 
 
             // Redireciona para a página do advogado
-            window.location.href = '/HomePages/indexHomeLawyer.html';
+            window.location.href = '/HomePages/HomeLawyer/indexHomeLawyer.html';
         } else {
             alert("Invalid credentials");
         }

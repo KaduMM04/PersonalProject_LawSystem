@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.MyProject.dtos.ClientDTO;
 import com.example.MyProject.model.Case;
 import com.example.MyProject.model.Client;
+import com.example.MyProject.model.UserRole;
 import com.example.MyProject.repository.CaseRepository;
 import com.example.MyProject.repository.ClientRepository;
 
@@ -21,7 +23,15 @@ public class ClientService {
 	@Autowired
 	private CaseRepository caseRepository;
 	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
+	
 	public Client saveClient(Client client) {
+		if (client.getRole() == null) {
+			client.setRole(UserRole.USERCLIENT);
+		}
+		client.setPassword(passwordEncoder.encode(client.getPassword()));
 		return clientRepository.save(client);
 	}
 	
@@ -54,8 +64,12 @@ public class ClientService {
 		existingClient.setCpf(updatedClient.getCpf());
 		existingClient.setName(updatedClient.getName());
 		existingClient.setEmail(updatedClient.getEmail());
-		existingClient.setPassword(updatedClient.getPassword());
+		existingClient.setPassword(passwordEncoder.encode(updatedClient.getPassword()));
 		existingClient.setCep(updatedClient.getCep());
+		
+		if (existingClient.getRole() == null) {
+	        existingClient.setRole(UserRole.USERCLIENT);
+	    }
 
         return clientRepository.save(existingClient);
     }

@@ -3,12 +3,14 @@ package com.example.MyProject.infra.security;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.example.MyProject.exceptions.CustomSecurityException;
 import com.example.MyProject.repository.UserRepository;
 
 import jakarta.servlet.FilterChain;
@@ -27,18 +29,36 @@ public class SecurityFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-		var token = this.recoverToken(request);
-		
-		if(token != null) {
-			var login = tokenService.validateToken(token);
-			UserDetails user = userRepository.findByEmail(login);
-			
-			var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-		}
-		
-		filterChain.doFilter(request, response);
-		
+	    try {
+	        // Recupera o token do request
+	        var token = this.recoverToken(request);
+	        
+	        if (token != null) {
+	            // Valida o token e recupera o email do usuário
+	            var login = tokenService.validateToken(token);
+	            UserDetails user = userRepository.findByEmail(login);
+	            
+	            // Verifica se o usuário foi encontrado
+	            if (user == null) {
+	                throw new CustomSecurityException("User not found for the provided token.");
+	            }
+
+	            // Configura a autenticação no contexto de segurança
+	            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+	            SecurityContextHolder.getContext().setAuthentication(authentication);
+	        }
+	        
+	       
+	        filterChain.doFilter(request, response);
+	        
+	    } catch (CustomSecurityException e) {
+	        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+	        response.getWriter().write(e.getMessage());
+	    } catch (Exception e) {
+	        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+	        response.getWriter().write("An unexpected error occurred.");
+	        e.printStackTrace();
+	    }
 	}
 	
 	private String recoverToken(HttpServletRequest request) {

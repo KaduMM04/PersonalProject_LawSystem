@@ -9,6 +9,13 @@ document.addEventListener("DOMContentLoaded", function() {
         return;
     }
 
+    const image = document.querySelector('.logo');
+
+    image.addEventListener('click', (event) => {
+    // Redirecionar para outra página:
+    location.replace("/HomePages/HomeLawyer/indexHomeLawyer.html");
+    });
+
     function fetchLawyers() {
         fetch('http://localhost:8080/lawyer', {
             method: 'GET',

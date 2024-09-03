@@ -1,9 +1,9 @@
 document.getElementById('clientForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    const token = localStorage.getItem('authToken');
+    var token = localStorage.getItem('authToken');
 
-    if(!token) {
+    if (!token) {
         console.error('Authenticated token not found.');
         return;
     }
@@ -13,6 +13,7 @@ document.getElementById('clientForm').addEventListener('submit', function(event)
     const cep = document.getElementById('cep').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const userRole = 'USERCLIENT';
 
     console.log('Name:', name);
     console.log('CPF:', cpf);
@@ -25,7 +26,8 @@ document.getElementById('clientForm').addEventListener('submit', function(event)
         cpf: Number(cpf),
         cep: cep,
         email: email,
-        password: password
+        password: password,
+        userRole: userRole
     };
 
     fetch('http://localhost:8080/client', {
@@ -42,14 +44,44 @@ document.getElementById('clientForm').addEventListener('submit', function(event)
         }
         return response.json();
     })
-    .then(data => {
-        console.log('Client successfully registered:', data);
+    .then(clientData => {
+        console.log('Client successfully registered:', clientData);
         alert('Client successfully registered.');
-        // Optionally, reset the form after a successful registration
-        document.getElementById('clientForm').reset();
+
+        const dataUser = {
+            email: data.email,
+            password: data.password,
+            role: data.userRole
+        };
+
+        return fetch('http://localhost:8080/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataUser)
+        }).then(response => {
+            // Store dataUser in the outer scope for later use
+            return { response: response, dataUser: dataUser };
+        });
+    })
+    .then(({ response, dataUser }) => { // Destructure the returned object
+        console.log('Register response:', response);
+        if (!response.ok) {
+            throw new Error('Request failed with status ' + response.status);
+        }
+
+        return response.text(); // Use .text() first to debug
+    })
+    .then(userData => {
+        console.log('User client successfully registered:', userData);
+        alert('User client successfully registered.');
+        document.getElementById('clientForm').reset(); 
     })
     .catch(error => {
-        console.error('Failed to register client:', error);
-        alert('Failed to register client. Please try again.');
+        console.error('Failed to register client or user:', error);
+        alert('Failed to register client or user. Please try again.');
+        document.getElementById('clientForm').reset();
     });
+
 });
