@@ -39,6 +39,14 @@ public class ClientService {
 		return clientRepository.findById(cpf).orElse(null);
 	}
 	
+	public Client getClientByEmail(String email) {
+		Client optionalClient = clientRepository.findByEmail(email);
+		if (optionalClient == null) {
+			throw new RuntimeException("Client not found with email: " + email);
+		}
+		return optionalClient;
+	}
+	
 	public void deleteClientById(Long cpf) {
 		Client client = clientRepository.findById(cpf)
 				.orElseThrow(() -> new RuntimeException("Client not found with Cpf: " + cpf));

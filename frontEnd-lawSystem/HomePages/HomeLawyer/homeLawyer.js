@@ -3,10 +3,23 @@ document.addEventListener("DOMContentLoaded", function() {
     var email = localStorage.getItem('userEmail'); 
     var lawyerOab = ""; // Inicialize a variável global
 
+    function handleLogout(event) {
+        event.preventDefault(); // Evita o comportamento padrão do link
+        localStorage.removeItem('authToken'); // Remove o token do localStorage
+        localStorage.removeItem('userEmail'); // Remove o email do localStorage
+        window.location.href = '/Login/login.html'; 
+    }
+    var logoutButton = document.getElementById("logout");
+    if (logoutButton) {
+        logoutButton.addEventListener('click', handleLogout);
+    }
+
     if (!token) {
-        console.error('Token de autenticação não encontrado.');
+        console.error('Token  of autentication not found');
+        window.location.href = '/Login/login.html'; 
         return;
     }
+
 
     fetch('http://localhost:8080/lawyer/email/' + email, {
         method: 'GET',

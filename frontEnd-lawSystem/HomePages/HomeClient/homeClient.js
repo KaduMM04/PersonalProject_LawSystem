@@ -1,10 +1,23 @@
 document.addEventListener("DOMContentLoaded", function() {
     var token = localStorage.getItem('authToken'); 
     var email = localStorage.getItem('userEmail'); 
-    var lawyerOab = ""; 
+
+    // Função de logout
+    function handleLogout(event) {
+        event.preventDefault(); // Evita o comportamento padrão do link
+        localStorage.removeItem('authToken'); // Remove o token do localStorage
+        localStorage.removeItem('userEmail'); // Remove o email do localStorage
+        window.location.href = '/Login/login.html'; 
+    }
+
+    var logoutButton = document.getElementById("logout");
+    if (logoutButton) {
+        logoutButton.addEventListener('click', handleLogout);
+    }
 
     if (!token) {
-        console.error('Token de autenticação não encontrado.');
+        console.error('Token  of autentication not found');
+        window.location.href = '/Login/login.html'; 
         return;
     }
 
@@ -17,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
+            throw new Error('Erro ao buscar dados do cliente: ' + response.statusText);
         }
         return response.json();
     })
@@ -26,16 +39,18 @@ document.addEventListener("DOMContentLoaded", function() {
         var welcomeElement = document.querySelector('.welcome h1');
         if (welcomeElement) {
             welcomeElement.textContent = "Bem-vindo, " + data.name;
-            lawyerOab = data.oab; 
-            fetchCases(lawyerOab); // Chama a função para carregar os casos
+            clientCpf = data.cpf;
+            fetchCases(clientCpf); // Chama a função para carregar os casos
         } else {
-            console.error('Elemento não encontrado');
+            console.error('Elemento de saudação não encontrado');
         }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        console.error('Erro ao carregar dados do cliente:', error);
+    });
 
-    function fetchCases(oab) {
-        fetch('http://localhost:8080/client/' + oab + '/cases', { 
+    function fetchCases(cpf) {
+        fetch('http://localhost:8080/client/' + cpf + '/cases', { 
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + token,
@@ -44,35 +59,36 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
+                throw new Error('Erro ao buscar casos: ' + response.statusText);
             }
             return response.json();
         })
         .then(data => {
-            var casesList = document.getElementById('cases-list');
-            casesList.innerHTML = '';
+            var casesContainer = document.getElementById('cases-container');
+            casesContainer.innerHTML = ''; // Limpa o conteúdo anterior
 
             if (data.length === 0) {
-                casesList.innerHTML = '<tr><td colspan="6">Não há casos para exibir.</td></tr>';
+                casesContainer.innerHTML = '<p>Não há casos para exibir.</p>';
             } else {
                 data.forEach(caseItem => {
-                    var row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${caseItem.id}</td>
-                        <td>${caseItem.typeCase}</td>
-                        <td>${caseItem.description}</td>
-                        <td>${caseItem.client.name}</td>
-                        <td>${caseItem.client.cpf}</td>
-                        <td>${caseItem.price}</td>
+                    var card = document.createElement('div');
+                    card.classList.add('case-card'); // Adiciona uma classe ao card
+
+                    card.innerHTML = `
+                        <h3>Case ID: ${caseItem.id}</h3>
+                        <p><strong>Tipo:</strong> ${caseItem.typeCase}</p>
+                        <p><strong>Advogado:</strong> Dr(a). ${caseItem.lawyer.name}</p>
+                        <p><strong>Descrição:</strong> ${caseItem.description}</p>
                     `;
-                    casesList.appendChild(row);
+
+                    casesContainer.appendChild(card); // Adiciona o card ao container
                 });
             }
         })
         .catch(error => {
-            console.error('Error:', error);
-            var casesList = document.getElementById('cases-list');
-            casesList.innerHTML = '<tr><td colspan="6">Erro ao carregar casos.</td></tr>';
+            console.error('Erro ao carregar casos:', error);
+            var casesContainer = document.getElementById('cases-container');
+            casesContainer.innerHTML = '<p>Erro ao carregar casos.</p>';
         });
     }
 });

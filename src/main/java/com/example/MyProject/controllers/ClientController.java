@@ -52,6 +52,16 @@ public class ClientController {
 		return ResponseEntity.ok().body(clientDTO);
 	}
 	
+	@GetMapping(value = "/email/{email}")
+	public ResponseEntity<ClientDTO> findByEmail(@PathVariable String email) {
+	    Client client = clientService.getClientByEmail(email);
+	    if (client == null) {
+	        return ResponseEntity.notFound().build();
+	    }
+	    ClientDTO clientDTO = clientService.convertToDTO(client);
+	    return ResponseEntity.ok().body(clientDTO);
+	}
+	
 	@GetMapping(value = "/{cpf}/cases")
 	public ResponseEntity<List<CaseDTO>> findCasesByClientId(@PathVariable Long cpf) {
 		List<CaseDTO> caseDTOs = caseService.getCasesByClientId(cpf);

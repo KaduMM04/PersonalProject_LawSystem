@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Lawyer Dashboard</title>
+    <title>Home - Client Dashboard</title>
     <link rel="stylesheet" href="homeClient.css">
 </head>
 <body>
@@ -28,7 +28,7 @@
                 <li><a href="#">Início</a></li>
                 <li><a href="#">Mensagens</a></li>
                 <li><a href="#">Perfil</a></li>
-                <li><a href="#">Sair</a></li>
+                <li><a href="#" id="logout">Sair</a></li>
             </ul>
         </nav>
         <main>
@@ -39,22 +39,8 @@
             <div class="dashboard">
                 <div class="case-summary">
                     <h2>Meus Casos</h2>
-                    <div class="section-content">
-                        <table id="cases-table" class="cases-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Tipo</th>
-                                    <th>Descrição</th>
-                                    <th>Cliente</th>
-                                    <th>CPF</th>
-                                    <th>Valor</th>
-                                </tr>
-                            </thead>
-                            <tbody id="cases-list">
-                                <!-- Os dados dos casos serão inseridos aqui -->
-                            </tbody>
-                        </table>
+                    <div class="section-content" id="cases-container">
+                        <!-- Os cartões dos casos serão inseridos aqui -->
                     </div>
                 </div>
             </div>

@@ -31,6 +31,7 @@ public class SecurityConfig {
 						.requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
 						 .requestMatchers("/h2-console/**").permitAll() // Permite acesso ao console do H2
 						 .requestMatchers(HttpMethod.POST, "/client").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.GET, "/user").permitAll()
 						.requestMatchers(HttpMethod.GET, "/lawyer").hasRole("ADMIN")
 						.requestMatchers(HttpMethod.GET, "/email/**").hasAnyRole("USERLAWYER" , "USERCLIENT")
 						.requestMatchers(HttpMethod.GET, "/cases/**").hasAnyRole("USERLAWYER" , "USERCLIENT")

@@ -25,18 +25,38 @@ document.querySelector('form').addEventListener('submit', function(event) {
     })
     .then(data => {
         // Verifica se o token está presente na resposta
-
-        
         if (data.token) {
             // Armazena o token e o email do usuário no localStorage
             localStorage.setItem('authToken', data.token);
             localStorage.setItem('userEmail', login); 
 
-            // Redireciona para a página do advogado
-            window.location.href = '/HomePages/HomeLawyer/indexHomeLawyer.html';
+            // Faz uma requisição para obter informações sobre o usuário
+            return fetch('http://localhost:8080/user/' + login, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${data.token}`, // Correção no uso de crase
+                }
+            });
         } else {
             alert("Invalid credentials");
+            return Promise.reject('Invalid credentials');
         }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch user information');
+        }
+        return response.json();
+    })
+    .then(userData => {
+        // Redireciona para a página correta com base no tipo de usuário
+        if (userData.role === 'ADMIN') {
+            window.location.href = '/HomePages/HomeLawyer/indexHomeLawyer.html';
+        } else if (userData.role === 'USERCLIENT') {
+            window.location.href = '/HomePages/HomeClient/indexHomeClient.html';
+        } else {
+            alert('Unknown user role');
+        }    
     })
     .catch(error => {
         console.error('Error:', error);

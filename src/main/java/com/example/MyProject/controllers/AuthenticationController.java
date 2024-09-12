@@ -67,4 +67,7 @@ public class AuthenticationController {
 	    this.repository.save(newUserLogin);
 	    return ResponseEntity.ok().build();
 	}
+	
+	
+	
 }
