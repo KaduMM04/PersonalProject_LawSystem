@@ -10,13 +10,12 @@ document.querySelector('form').addEventListener('submit', function(event) {
         return;
     }
 
-    // Faz a requisição para o backend
     fetch('http://localhost:8080/auth/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: login, password: password }), // Usa 'email' como campo para login
+        body: JSON.stringify({ email: login, password: password }),
     })
     .then(response => {
         if (!response.ok) {
@@ -26,6 +25,8 @@ document.querySelector('form').addEventListener('submit', function(event) {
     })
     .then(data => {
         // Verifica se o token está presente na resposta
+
+        
         if (data.token) {
             // Armazena o token e o email do usuário no localStorage
             localStorage.setItem('authToken', data.token);

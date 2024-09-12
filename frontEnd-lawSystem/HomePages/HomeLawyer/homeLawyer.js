@@ -92,11 +92,12 @@ document.addEventListener("DOMContentLoaded", function() {
                         <td>${caseItem.description}</td>
                         <td>${caseItem.client.name}</td>
                         <td>${caseItem.client.cpf}</td>
-                        <td>${caseItem.price}</td>
+                        <td>${caseItem.price}</td>   
                     `;
                     casesList.appendChild(row);
                 });
             }
+
         })
         .catch(error => {
             console.error('Error:', error);
